@@ -2,92 +2,149 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Palette de couleurs principale
-  static const Color primaryColor = Color(0xFF2C2C2C);
-  static const Color secondaryColor = Color(0xFF4A4A4A);
+  // Couleurs principales avec des nuances de gris sophistiquées
+  static const primaryColor = Color(0xFF2B2D42);
+  static const secondaryColor = Color(0xFF8D99AE);
+  static const backgroundColor = Color(0xFFF8F9FA);
+  static const cardColor = Colors.white;
   
-  // Nuances de gris pour l'interface
-  static const Color backgroundColor = Color(0xFFF8F9FA);
-  static const Color surfaceColor = Colors.white;
-  static const Color cardColor = Color(0xFFFFFFFF);
-  static const Color dividerColor = Color(0xFFE9ECEF);
+  // Nuances de gris pour la hiérarchie visuelle
+  static const surfaceLightColor = Color(0xFFF8F9FA);
+  static const surfaceMediumColor = Color(0xFFE9ECEF);
+  static const surfaceDarkColor = Color(0xFFDEE2E6);
+  static const dividerColor = Color(0xFFDEE2E6);
   
-  // Nuances pour les éléments d'interface
-  static const Color textPrimaryColor = Color(0xFF2C2C2C);
-  static const Color textSecondaryColor = Color(0xFF6C757D);
-  static const Color textTertiaryColor = Color(0xFF8E959E);
-  static const Color shadowColor = Color(0x1A000000);
+  // Couleurs de texte
+  static const textPrimaryColor = Color(0xFF2B2D42);
+  static const textSecondaryColor = Color(0xFF6C757D);
+  static const textTertiaryColor = Color(0xFF8E959E);
+  static const textOnPrimaryColor = Colors.white;
   
-  // Couleurs d'état
-  static const Color errorColor = Color(0xFFDC3545);
-  static const Color successColor = Color(0xFF28A745);
-  static const Color warningColor = Color(0xFFFFC107);
+  // Couleurs d'accentuation
+  static const accentColor = Color(0xFF4A90E2);
+  static const errorColor = Color(0xFFDC3545);
+  static const successColor = Color(0xFF28A745);
+  static const warningColor = Color(0xFFFFC107);
+  
+  // Ombres et élévation
+  static const shadowColor = Color(0x1A000000);
+  static const elevation1 = 2.0;
+  static const elevation2 = 4.0;
+  static const elevation3 = 8.0;
+  
+  // Rayons de bordure
+  static const borderRadiusSmall = 8.0;
+  static const borderRadiusMedium = 12.0;
+  static const borderRadiusLarge = 16.0;
 
-  static ThemeData get lightTheme {
-    final baseTheme = ThemeData.light();
-    final textTheme = GoogleFonts.robotoTextTheme(baseTheme.textTheme);
-
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.light(
-        primary: primaryColor,
-        secondary: secondaryColor,
-        surface: surfaceColor,
-        background: backgroundColor,
-        error: errorColor,
+  // Espacement
+  static const spacingUnit = 8.0;
+  
+  static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.light(
+      primary: primaryColor,
+      secondary: secondaryColor,
+      background: backgroundColor,
+      surface: cardColor,
+      error: errorColor,
+      onPrimary: textOnPrimaryColor,
+      onSecondary: textPrimaryColor,
+      onBackground: textPrimaryColor,
+      onSurface: textPrimaryColor,
+      onError: textOnPrimaryColor,
+    ),
+    scaffoldBackgroundColor: backgroundColor,
+    cardTheme: CardTheme(
+      color: cardColor,
+      elevation: elevation1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadiusMedium),
       ),
-      textTheme: textTheme.copyWith(
-        titleLarge: textTheme.titleLarge?.copyWith(
-          color: textPrimaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-        titleMedium: textTheme.titleMedium?.copyWith(
-          color: textPrimaryColor,
-        ),
-        bodyLarge: textTheme.bodyLarge?.copyWith(
-          color: textSecondaryColor,
-        ),
-        bodyMedium: textTheme.bodyMedium?.copyWith(
-          color: textSecondaryColor,
-        ),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
+      margin: const EdgeInsets.all(spacingUnit),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: cardColor,
+      foregroundColor: textPrimaryColor,
+      elevation: 0,
+      centerTitle: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(borderRadiusSmall),
         ),
       ),
-      cardTheme: CardTheme(
-        elevation: 2,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: surfaceLightColor,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(borderRadiusMedium),
+        borderSide: BorderSide.none,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(borderRadiusMedium),
+        borderSide: BorderSide(color: surfaceDarkColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(borderRadiusMedium),
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: spacingUnit * 2,
+        vertical: spacingUnit * 1.5,
+      ),
+    ),
+    textTheme: TextTheme(
+      headlineLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: textPrimaryColor,
+        letterSpacing: -0.5,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: textPrimaryColor,
+        letterSpacing: -0.3,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: textPrimaryColor,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: textPrimaryColor,
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 16,
+        color: textPrimaryColor,
+        height: 1.5,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        color: textSecondaryColor,
+        height: 1.4,
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColor,
+        foregroundColor: textOnPrimaryColor,
+        elevation: elevation1,
+        padding: EdgeInsets.symmetric(
+          horizontal: spacingUnit * 3,
+          vertical: spacingUnit * 1.5,
+        ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        color: cardColor,
-        shadowColor: shadowColor,
-      ),
-      appBarTheme: AppBarTheme(
-        elevation: 0,
-        backgroundColor: surfaceColor,
-        foregroundColor: primaryColor,
-        titleTextStyle: textTheme.titleLarge?.copyWith(
-          color: primaryColor,
-          fontWeight: FontWeight.bold,
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
         ),
       ),
-      dividerTheme: const DividerThemeData(
-        color: dividerColor,
-        thickness: 1,
-        space: 24,
-      ),
-      iconTheme: const IconThemeData(
-        color: secondaryColor,
-        size: 24,
-      ),
-    );
-  }
+    ),
+    iconTheme: IconThemeData(
+      color: textSecondaryColor,
+      size: 24,
+    ),
+  );
 } 

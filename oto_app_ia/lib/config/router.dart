@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oto_app_ia/features/home/home_page.dart';
-import 'package:oto_app_ia/features/ai_models/mistral/mistral_screen.dart';
+import 'package:oto_app_ia/features/home/home_screen.dart';
+import 'package:oto_app_ia/features/mistral/mistral_screen.dart';
+import 'package:oto_app_ia/features/settings/api_key_settings.dart';
 
 /// Configuration du routeur de l'application
 final router = GoRouter(
@@ -9,41 +10,29 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'home',
-      builder: (context, state) => const HomePage(),
-      routes: [
-        GoRoute(
-          path: 'chat/mistral',
-          name: 'mistral',
-          builder: (context, state) => const MistralScreen(),
-        ),
-      ],
+      builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/mistral',
+      builder: (context, state) => const MistralScreen(),
+    ),
+    GoRoute(
+      path: '/settings/api-key',
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>?;
+        return ApiKeySettings(
+          modelId: args?['modelId'] ?? '',
+          modelName: args?['modelName'] ?? '',
+          apiKeyGuide: args?['apiKeyGuide'] ?? '',
+        );
+      },
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Erreur'),
-    ),
     body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.error_outline,
-            size: 64,
-            color: Colors.red,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Page non trouvée',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () => context.go('/'),
-            child: const Text('Retour à l\'accueil'),
-          ),
-        ],
+      child: Text(
+        'Page non trouvée: ${state.uri.path}',
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     ),
   ),
